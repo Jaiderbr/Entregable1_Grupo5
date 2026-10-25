@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Entregable 1 - Grupo 5</title>
+</head>
+<body>
+    <h1>Entregable 1 - Grupo 5</h1>
+    <h2>Eliud Garcia Capera</h2>
+    <h2>Jaider Bautista Rodriguez</h2>
+
+    <h2>Crear usuario</h2>
+    <form action="/api/users" method="POST" enctype="multipart/form-data">
+        <p><label>Nombre: <input type="text" name="firstname" required></label></p>
+        <p><label>Apellido: <input type="text" name="lastname" required></label></p>
+        <p><label>Username: <input type="text" name="username" required></label></p>
+        <p><label>Contrase&ntilde;a: <input type="password" name="password" required></label></p>
+        <p><label>Avatar: <input type="file" name="avatar" accept="image/png,image/jpeg,image/webp"></label></p>
+        <p><button type="submit">Crear usuario</button></p>
+    </form>
+
+    <h2>Crear mascota</h2>
+    <form action="/api/pets" method="POST" enctype="multipart/form-data">
+        <p><label>Especie: <input type="text" name="especie" required></label></p>
+        <p><label>Color: <input type="text" name="color" required></label></p>
+        <p><label>Edad: <input type="number" name="edad" min="0" step="1" required></label></p>
+        <p>
+            <label>Sexo:
+                <select name="sexo" required>
+                    <option value="macho">Macho</option>
+                    <option value="hembra">Hembra</option>
+                </select>
+            </label>
+        </p>
+        <p><label>Im&aacute;genes (m&aacute;x. 5): <input type="file" name="img" accept="image/png,image/jpeg,image/webp" multiple></label></p>
+        <p><button type="submit">Crear mascota</button></p>
+    </form>
+
+    <h2>Consultar</h2>
+    <ul>
+        <li><a href="/api/users">Ver usuarios</a></li>
+        <li><a href="/api/pets">Ver mascotas</a></li>
+    </ul>
+</body>
+</html>

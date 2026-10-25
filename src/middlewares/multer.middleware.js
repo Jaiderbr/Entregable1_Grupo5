@@ -13,7 +13,9 @@ const ALLOWED = ['image/jpg', 'image/jpeg', 'image/png', 'image/webp'];
 
 const fileFilter = (req, file, cb) => {
     if(ALLOWED.includes(file.mimetype)) return cb(null, true);
-    cb(new Error('Formato de archivo no permitido'));
+    const error = new Error('Formato de archivo no permitido');
+    error.status = 400;
+    cb(error);
 };
 
 const createUploader = ({folder, prefix}) => {

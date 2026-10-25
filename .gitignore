@@ -147,3 +147,12 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Imagenes subidas por los usuarios (se conservan solo las carpetas)
+public/img/users/*
+public/img/pets/*
+!public/img/users/.gitkeep
+!public/img/pets/.gitkeep
+
+# Configuracion local de Claude Code
+.claude/
