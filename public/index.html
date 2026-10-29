@@ -2,44 +2,148 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Entregable 1 - Grupo 5</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Huellitas - Entregable 1 Grupo 5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="/js/app.js" defer></script>
 </head>
 <body>
-    <h1>Entregable 1 - Grupo 5</h1>
-    <h2>Eliud Garcia Capera</h2>
-    <h2>Jaider Bautista Rodriguez</h2>
+    <header class="site-header">
+        <div class="brand">
+            <h1>Huellitas</h1>
+            <p class="tagline">Registro de mascotas y usuarios</p>
+            <p class="team">Entregable 1, Grupo 5: Eliud Garcia Capera, Jaider Bautista Rodriguez e Ivan Carvajal Reina</p>
+        </div>
+        <nav class="tabs" role="tablist" aria-label="Secciones">
+            <button type="button" class="tab" role="tab" id="tab-pets" aria-controls="panel-pets" aria-selected="true" data-hash="#mascotas">
+                Mascotas <span class="count" data-count="pets">0</span>
+            </button>
+            <button type="button" class="tab" role="tab" id="tab-users" aria-controls="panel-users" aria-selected="false" data-hash="#usuarios">
+                Usuarios <span class="count" data-count="users">0</span>
+            </button>
+        </nav>
+    </header>
 
-    <h2>Crear usuario</h2>
-    <form action="/api/users" method="POST" enctype="multipart/form-data">
-        <p><label>Nombre: <input type="text" name="firstname" required></label></p>
-        <p><label>Apellido: <input type="text" name="lastname" required></label></p>
-        <p><label>Username: <input type="text" name="username" required></label></p>
-        <p><label>Contrase&ntilde;a: <input type="password" name="password" required></label></p>
-        <p><label>Avatar: <input type="file" name="avatar" accept="image/png,image/jpeg,image/webp"></label></p>
-        <p><button type="submit">Crear usuario</button></p>
-    </form>
+    <main>
+        <section class="panel" id="panel-pets" role="tabpanel" aria-labelledby="tab-pets">
+            <form class="editor" action="/api/pets" method="POST" enctype="multipart/form-data">
+                <h2 data-form-title>Nueva mascota</h2>
 
-    <h2>Crear mascota</h2>
-    <form action="/api/pets" method="POST" enctype="multipart/form-data">
-        <p><label>Especie: <input type="text" name="especie" required></label></p>
-        <p><label>Color: <input type="text" name="color" required></label></p>
-        <p><label>Edad: <input type="number" name="edad" min="0" step="1" required></label></p>
-        <p>
-            <label>Sexo:
-                <select name="sexo" required>
-                    <option value="macho">Macho</option>
-                    <option value="hembra">Hembra</option>
-                </select>
-            </label>
-        </p>
-        <p><label>Im&aacute;genes (m&aacute;x. 5): <input type="file" name="img" accept="image/png,image/jpeg,image/webp" multiple></label></p>
-        <p><button type="submit">Crear mascota</button></p>
-    </form>
+                <div class="field">
+                    <label class="field-label" for="pet-especie">Especie</label>
+                    <input type="text" id="pet-especie" name="especie" list="especies" placeholder="Perro, gato, conejo..." required>
+                    <datalist id="especies">
+                        <option value="perro"></option>
+                        <option value="gato"></option>
+                        <option value="conejo"></option>
+                        <option value="ave"></option>
+                        <option value="hamster"></option>
+                    </datalist>
+                </div>
 
-    <h2>Consultar</h2>
-    <ul>
-        <li><a href="/api/users">Ver usuarios</a></li>
-        <li><a href="/api/pets">Ver mascotas</a></li>
-    </ul>
+                <div class="field">
+                    <label class="field-label" for="pet-color">Color</label>
+                    <input type="text" id="pet-color" name="color" placeholder="Negro con manchas blancas" required>
+                </div>
+
+                <div class="row">
+                    <div class="field">
+                        <label class="field-label" for="pet-edad">Edad en años</label>
+                        <input type="number" id="pet-edad" name="edad" min="0" step="1" placeholder="4" required>
+                    </div>
+                    <fieldset class="field">
+                        <legend class="field-label">Sexo</legend>
+                        <div class="segmented">
+                            <label><input type="radio" name="sexo" value="macho" checked required> Macho</label>
+                            <label><input type="radio" name="sexo" value="hembra"> Hembra</label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="field">
+                    <span class="field-label">Fotos</span>
+                    <label class="dropzone">
+                        <input type="file" name="img" accept="image/png,image/jpeg,image/webp" multiple class="visually-hidden">
+                        <span><strong>Elige fotos</strong> o arrástralas aquí</span>
+                        <span class="hint">JPG, PNG o WebP. Hasta 5 fotos de 5 MB.</span>
+                    </label>
+                    <div class="previews" data-previews></div>
+                    <label class="check" data-edit-only hidden>
+                        <input type="checkbox" name="reemplazarImg" value="true">
+                        Reemplazar las fotos actuales por las nuevas
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Registrar mascota</button>
+                    <button type="button" class="btn btn-secondary" data-cancel hidden>Cancelar</button>
+                </div>
+            </form>
+
+            <div class="collection">
+                <div class="collection-head">
+                    <h2>Mascotas registradas</h2>
+                    <a class="json-link" href="/api/pets" target="_blank">Ver JSON</a>
+                </div>
+                <ul class="pet-grid" data-list aria-live="polite"></ul>
+            </div>
+        </section>
+
+        <section class="panel" id="panel-users" role="tabpanel" aria-labelledby="tab-users" hidden>
+            <form class="editor" action="/api/users" method="POST" enctype="multipart/form-data">
+                <h2 data-form-title>Nuevo usuario</h2>
+
+                <div class="row">
+                    <div class="field">
+                        <label class="field-label" for="user-firstname">Nombre</label>
+                        <input type="text" id="user-firstname" name="firstname" autocomplete="given-name" required>
+                    </div>
+                    <div class="field">
+                        <label class="field-label" for="user-lastname">Apellido</label>
+                        <input type="text" id="user-lastname" name="lastname" autocomplete="family-name" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="field-label" for="user-username">Username</label>
+                    <input type="text" id="user-username" name="username" autocomplete="off" placeholder="w.patino" required>
+                </div>
+
+                <div class="field">
+                    <label class="field-label" for="user-password">Contraseña</label>
+                    <input type="password" id="user-password" name="password" autocomplete="new-password" required aria-describedby="password-hint">
+                    <p class="hint" id="password-hint" data-password-hint>Se guarda cifrada y nunca se muestra.</p>
+                </div>
+
+                <div class="field">
+                    <span class="field-label">Avatar</span>
+                    <label class="dropzone">
+                        <input type="file" name="avatar" accept="image/png,image/jpeg,image/webp" class="visually-hidden">
+                        <span><strong>Elige una foto</strong> o arrástrala aquí</span>
+                        <span class="hint">Opcional. JPG, PNG o WebP de hasta 5 MB.</span>
+                    </label>
+                    <div class="previews" data-previews></div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Registrar usuario</button>
+                    <button type="button" class="btn btn-secondary" data-cancel hidden>Cancelar</button>
+                </div>
+            </form>
+
+            <div class="collection">
+                <div class="collection-head">
+                    <h2>Usuarios registrados</h2>
+                    <a class="json-link" href="/api/users" target="_blank">Ver JSON</a>
+                </div>
+                <ul class="user-list" data-list aria-live="polite"></ul>
+            </div>
+        </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 </body>
 </html>
